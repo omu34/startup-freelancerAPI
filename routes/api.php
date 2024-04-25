@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FreelancerController;
 use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\MediaController;
 
 
 Route::get('/user', function (Request $request) {
@@ -29,4 +30,22 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('upload', [FileUploadController::class, 'store']);
     Route::delete('upload/{filename}', [FileUploadController::class, 'delete']);
+// Library
+    Route::post('library', [MediaController::class, 'storeMedia']);
+    Route::get('library/{library}', [MediaController::class, 'getMedia']);
+    Route::put('library/{library}/{mediaId}', [MediaController::class, 'updateMedia']);
+    Route::delete('library/{library}/{mediaId}', [MediaController::class, 'deleteMedia']);
+    Route::get('library/{library}/{mediaId}/download', [MediaController::class, 'downloadMedia']);
 });
+
+
+
+
+// Route::prefix('libraries')->group(function () {
+//     Route::post('/', [MediaController::class, 'storeMedia']);
+//     Route::get('/{Media}', [MediaController::class, 'getMedia']);
+//     Route::put('/{Media}/{mediaId}', [MediaController::class, 'updateMedia']);
+//     Route::delete('/{Media}/{mediaId}', [MediaController::class, 'deleteMedia']);
+//     Route::get('/{Media}/{mediaId}/download', [MediaController::class, 'downloadMedia']);
+// });
+

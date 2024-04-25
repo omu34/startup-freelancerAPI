@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('google_id')->nullable();
+        Schema::create('media', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('content');
+            $table->string('attachment');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('media');
     }
 };
