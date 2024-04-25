@@ -16,7 +16,7 @@ class ProfilePolicy
         // return Gate::allows('is_admin', $user) || $user->Administrator();
         $user = User::find(1);
         if ($user && $user->is_admin) {
-            // echo "Allowed to Execute";
+           
         } else {
             echo "User is not authorized for admin tasks";
         }

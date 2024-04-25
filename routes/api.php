@@ -26,11 +26,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // Admin routes
     Route::get('/admin/pending-approval', [FreelancerController::class, 'adminFetchPendingApproval']);
     Route::put('/admin/profile/{profile}/approve', [FreelancerController::class, 'adminDecidesApproval']);
-
-
-    Route::post('upload', [FileUploadController::class, 'store']);
-    Route::delete('upload/{filename}', [FileUploadController::class, 'delete']);
-// Library
+    // Library routes
     Route::post('library', [MediaController::class, 'storeMedia']);
     Route::get('library/{library}', [MediaController::class, 'getMedia']);
     Route::put('library/{library}/{mediaId}', [MediaController::class, 'updateMedia']);
@@ -41,11 +37,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
 
-// Route::prefix('libraries')->group(function () {
-//     Route::post('/', [MediaController::class, 'storeMedia']);
-//     Route::get('/{Media}', [MediaController::class, 'getMedia']);
-//     Route::put('/{Media}/{mediaId}', [MediaController::class, 'updateMedia']);
-//     Route::delete('/{Media}/{mediaId}', [MediaController::class, 'deleteMedia']);
-//     Route::get('/{Media}/{mediaId}/download', [MediaController::class, 'downloadMedia']);
-// });
 

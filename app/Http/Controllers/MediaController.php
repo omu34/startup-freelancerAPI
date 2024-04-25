@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Library;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\MediaLibrary\Support\File; // For downloading
+use Spatie\MediaLibrary\Support\File;
 
 class MediaController extends Controller
 {
@@ -23,7 +23,7 @@ class MediaController extends Controller
             'message' => 'Media uploaded successfully!',
             'data' => [
                 'id' => $media->id,
-                'url' => $media->getUrl(), // Use getUrl() for flexibility (adjust if needed)
+                'url' => $media->getUrl(),
                 'type' => $media->mime_type,
                 // Add other relevant media details
             ],
@@ -39,7 +39,7 @@ class MediaController extends Controller
             'data' => $media->map(function (Media $mediaItem) {
                 return [
                     'id' => $mediaItem->id,
-                    'url' => $mediaItem->getUrl(), // Use getUrl() for flexibility (adjust if needed)
+                    'url' => $mediaItem->getUrl(),
                     'type' => $mediaItem->mime_type,
                     // Add other relevant media details
                 ];
@@ -49,11 +49,11 @@ class MediaController extends Controller
 
     public function updateMedia(Request $request, Library $model, int $mediaId)
     {
-        $media = $model->getMedia('')->find($mediaId); // Find media from any collection
+        $media = $model->getMedia('')->find($mediaId);
 
         if ($media) {
             $request->validate([
-                'name' => 'nullable|string', // Allow optional name update
+                'name' => 'nullable|string',
             ]);
 
             if ($request->has('name')) {
@@ -67,7 +67,7 @@ class MediaController extends Controller
                 'data' => [
                     'id' => $media->id,
                     'name' => $media->name,
-                    'url' => $media->getUrl(), // Use getUrl() for flexibility (adjust if needed)
+                    'url' => $media->getUrl(),
                     'type' => $media->mime_type,
                     // Add other relevant media details
                 ],
@@ -79,7 +79,7 @@ class MediaController extends Controller
 
     public function deleteMedia(Library $model, int $mediaId)
     {
-        $media = $model->getMedia('')->find($mediaId); // Find media from any collection
+        $media = $model->getMedia('')->find($mediaId);
 
         if ($media) {
             $media->delete();
@@ -92,7 +92,7 @@ class MediaController extends Controller
 
     public function downloadMedia(Library $model, int $mediaId)
     {
-        $media = $model->getMedia('')->find($mediaId); // Find media from any collection
+        $media = $model->getMedia('')->find($mediaId);
 
         if ($media) {
             $file = \File::createFromMedia($media);
@@ -111,6 +111,6 @@ class MediaController extends Controller
             'documents' => 'application/pdf,application/vnd.ms-excel',
         ];
 
-        return isset($mimeTypes[$collection]) ? $mimeTypes[$collection] : '*/*'; // Allow all if collection not found
+        return isset($mimeTypes[$collection]) ? $mimeTypes[$collection] : '*/*';
     }
 }

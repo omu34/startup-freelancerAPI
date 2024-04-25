@@ -54,12 +54,5 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class);
     }
-    // public function role()
-    // {
-    //     return $this->belongsTo(Role::class);
-    // }
-    // public function is_admin()
-    // {
-    //     return $this->hasRole('Administrator');
-    // }
+  
 }

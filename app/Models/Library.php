@@ -17,20 +17,19 @@ class Library extends Model implements HasMedia
         $this
             ->addMediaCollection('images')
             ->singleFile()
-            ->accepts('image/*'); // Restrict to image types
+            ->accepts('image/*');
 
         $this
             ->addMediaCollection('videos')
             ->singleFile()
-            ->accepts('video/*'); // Restrict to video types
+            ->accepts('video/*');
 
         $this
             ->addMediaCollection('audios')
             ->singleFile()
-            ->accepts('audio/*'); // Restrict to audio types
-
+            ->accepts('audio/*');
         $this
             ->addMediaCollection('documents')
-            ->accepts('application/pdf', 'application/vnd.ms-excel'); // Allow PDFs and Excel
+            ->accepts('application/pdf', 'application/vnd.ms-excel');
     }
 }
