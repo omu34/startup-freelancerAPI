@@ -31,18 +31,4 @@ Route::get('api/google/callback', [GoogleOauthController::class, 'callback'])->n
 
 
 
-// Route::get('api/google/callback', function (Request $request) {
-// $code = request()->get('code');
 
-// $client = new Client();
-
-// $response = $client->post('https://www.googleapis.com/oauth2/v4/token', [
-//   'form_params' => [
-//     'grant_type' => 'authorization_code',
-//     'client_id' => env('GOOGLE_CLIENT_ID'),
-//     'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-//     'token_uri'=>env('GOOGLE_TOKEN_URI'),
-//     'auth_uri'=>env('GOOGLE_AUTH_URI'),
-//     'code' => $code,
-//     'redirect' => env('GOOGLE_REDIRECT_URL'),
-// ]])->name("google.redirect")});

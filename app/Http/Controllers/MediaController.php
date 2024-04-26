@@ -13,8 +13,9 @@ class MediaController extends Controller
     public function storeMedia(Request $request, Library $model)
     {
         $request->validate([
-            'file' => 'required|mimetypes:' . $this->getAllowedMimeTypes($request->collection), // Dynamic validation based on collection
-            'size' => 'max:2048', // Adjust size limit as needed
+            'collection' => 'required|string',
+            'file' => 'required|mimetypes:' . $this->getAllowedMimeTypes($request->collection),
+            'size' => 'max:2048',
         ]);
 
         $media = $model->addMediaFromRequest('file')->toMediaCollection($request->collection);
@@ -25,7 +26,7 @@ class MediaController extends Controller
                 'id' => $media->id,
                 'url' => $media->getUrl(),
                 'type' => $media->mime_type,
-                // Add other relevant media details
+
             ],
         ], 201);
     }
@@ -41,7 +42,7 @@ class MediaController extends Controller
                     'id' => $mediaItem->id,
                     'url' => $mediaItem->getUrl(),
                     'type' => $mediaItem->mime_type,
-                    // Add other relevant media details
+
                 ];
             })->toArray(),
         ]);
@@ -69,7 +70,7 @@ class MediaController extends Controller
                     'name' => $media->name,
                     'url' => $media->getUrl(),
                     'type' => $media->mime_type,
-                    // Add other relevant media details
+
                 ],
             ]);
         }
