@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 
 
-class FileController extends Controller
+class FileUploaderController extends Controller
 {
     /**
      * Store a newly created resource in storage.
