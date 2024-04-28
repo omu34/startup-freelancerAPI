@@ -3,115 +3,70 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Library;
+use App\Models\Media;
 use Illuminate\Http\Request;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\MediaLibrary\Support\File;
+use Illuminate\Support\Facades\Storage;
+
 
 class MediaController extends Controller
 {
-    public function storeMedia(Request $request, Library $model)
+    public function storeMedia(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
+            'file' => 'required|file|mimes:jpeg,png,mp4,mov,wav,mp3,pdf,csv,xls,xlsx|max:1048576',
             'collection' => 'required|string',
-            'file' => 'required|mimetypes:' . $this->getAllowedMimeTypes($request->collection),
-            'size' => 'max:2048',
+            'content' => 'nullable|string',
         ]);
 
-        $media = $model->addMediaFromRequest('file')->toMediaCollection($request->collection);
-
-        return response()->json([
-            'message' => 'Media uploaded successfully!',
-            'data' => [
-                'id' => $media->id,
-                'url' => $media->getUrl(),
-                'type' => $media->mime_type,
-
-            ],
-        ], 201);
-    }
-
-    public function getMedia(Library $model, string $collection)
-    {
-        $media = $model->getMedia($collection);
-
-        return response()->json([
-            'message' => 'Media retrieved successfully!',
-            'data' => $media->map(function (Media $mediaItem) {
-                return [
-                    'id' => $mediaItem->id,
-                    'url' => $mediaItem->getUrl(),
-                    'type' => $mediaItem->mime_type,
-
-                ];
-            })->toArray(),
-        ]);
-    }
-
-    public function updateMedia(Request $request, Library $model, int $mediaId)
-    {
-        $media = $model->getMedia('')->find($mediaId);
-
-        if ($media) {
-            $request->validate([
-                'name' => 'nullable|string',
-            ]);
-
-            if ($request->has('name')) {
-                $media->name = $request->name;
-            }
-
-            $media->save();
-
-            return response()->json([
-                'message' => 'Media updated successfully!',
-                'data' => [
-                    'id' => $media->id,
-                    'name' => $media->name,
-                    'url' => $media->getUrl(),
-                    'type' => $media->mime_type,
-
-                ],
-            ]);
+        if (!$request->hasFile('file')) {
+            return response()->json(['error' => 'No file uploaded'], 400);
         }
 
-        return response()->json(['message' => 'Media not found'], 404);
+        $file = $request->file('file');
+        $fileTitle = $file->getClientOriginalName();
+        $fileSize = $file->getSize();
+
+        $media = new Media();
+        $media->title = $fileTitle;
+        $media->content = $request->input('content');
+        $media->size = $fileSize;
+
+        $media->addMediaFromRequest('file')
+            ->toMediaCollection($validatedData['collection']);
+
+        return response()->json($media, 201);
     }
 
-    public function deleteMedia(Library $model, int $mediaId)
-    {
-        $media = $model->getMedia('')->find($mediaId);
 
-        if ($media) {
-            $media->delete();
 
-            return response()->json(['message' => 'Media deleted successfully!']);
-        }
 
-        return response()->json(['message' => 'Media not found'], 404);
-    }
 
-    public function downloadMedia(Library $model, int $mediaId)
-    {
-        $media = $model->getMedia('')->find($mediaId);
+    // public function updateMedia(Request $request, Media $media)
+    // {
+    //     $validatedData = $request->validate([
+    //         'content' => 'nullable|string',
+    //     ]);
 
-        if ($media) {
-            $file = \File::createFromMedia($media);
-            return response()->download($file->getPath(), $file->name);
-        }
+    //     $media->update($validatedData);
 
-        return response()->json(['message' => 'Media not found'], 404);
-    }
+    //     if ($request->hasFile('file')) {
+    //         $media->addMediaFromRequest('file')
+    //             ->toMediaCollection($request->collection);
+    //     }
 
-    private function getAllowedMimeTypes(string $collection): string
-    {
-        $mimeTypes = [
-            'images' => 'image/*',
-            'videos' => 'video/*',
-            'audios' => 'audio/*',
-            'documents' => 'application/pdf,application/vnd.ms-excel',
-        ];
+    //     return response()->json($media, 200);
+    // }
 
-        return isset($mimeTypes[$collection]) ? $mimeTypes[$collection] : '*/*';
-    }
+
+    // public function destroyMedia(Media $media)
+    // {
+    //     $media->delete();
+
+    //     return response()->json(null, 204);
+    // }
+
+    // public function downloadMedia(Media $media)
+    // {
+    //     return $media->download();
+    // }
 }

@@ -5,8 +5,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FreelancerController;
-use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\FileController;
+
 
 
 Route::get('/user', function (Request $request) {
@@ -26,15 +27,19 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // Admin routes
     Route::get('/admin/pending-approval', [FreelancerController::class, 'adminFetchPendingApproval']);
     Route::put('/admin/profile/{profile}/approve', [FreelancerController::class, 'adminDecidesApproval']);
-    // Library routes
-    Route::post('library', [MediaController::class, 'storeMedia']);
-    Route::get('library/{library}', [MediaController::class, 'getMedia']);
-    Route::put('library/{library}/{mediaId}', [MediaController::class, 'updateMedia']);
-    Route::delete('library/{library}/{mediaId}', [MediaController::class, 'deleteMedia']);
-    Route::get('library/{library}/{mediaId}/download', [MediaController::class, 'downloadMedia']);
+
+
+
+
+    // Route::post('/media', [MediaController::class, 'storeMedia']);
+    // Route::get('/media/media', [MediaController::class, 'showMedia']);
+    // Route::put('/media/{media}', [MediaController::class, 'updateMedia']);
+    // Route::delete('/media/{media}', [MediaController::class, 'destroyMedia']);
+    // Route::get('/media/{media}/download', [MediaController::class, 'downloadMedia']);
+
+    Route::post('/media', [FileController::class, 'store']);
+    Route::get('/media/{id}', [FileController::class, 'show']);
+    Route::put('/media/{id}', [FileController::class, 'update']);
+    Route::delete('/media/{id}', [FileController::class, 'destroy']);
+    Route::get('/media/{id}/download', [FileController::class, 'download']);
 });
-
-
-
-
-
