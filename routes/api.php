@@ -31,15 +31,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
 
-    // Route::post('/media', [MediaController::class, 'storeMedia']);
+    Route::post('/media', [MediaController::class, 'storeMedia']);
     // Route::get('/media/media', [MediaController::class, 'showMedia']);
     // Route::put('/media/{media}', [MediaController::class, 'updateMedia']);
     // Route::delete('/media/{media}', [MediaController::class, 'destroyMedia']);
-    // Route::get('/media/{media}/download', [MediaController::class, 'downloadMedia']);
+    Route::get('/media/media/download', [MediaController::class, 'downloadMedia'])->where('media', '[0-9]+');
 
-    Route::post('/media', [FileUploaderController::class, 'store']);
-    Route::get('/media/{id}', [FileUploaderController::class, 'show']);
-    Route::put('/media/{id}', [FileUploaderController::class, 'update']);
-    Route::delete('/media/{id}', [FileUploaderController::class, 'destroy']);
-    Route::get('/media/{id}/download', [FileUploaderController::class, 'download']);
+    // Route::post('/media', [FileUploaderController::class, 'store']);
+    // Route::get('/media/{id}/download', [FileUploaderController::class, 'download']);
+    // Route::get('/media/{id}', [FileUploaderController::class, 'show']);
+    // Route::put('/media/{id}', [FileUploaderController::class, 'update']);
+    // Route::delete('/media/{id}', [FileUploaderController::class, 'destroy']);
+
 });

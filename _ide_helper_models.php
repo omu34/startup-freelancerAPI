@@ -40,13 +40,19 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property int $MediaId
+ * @property string $model_type
+ * @property int $model_id
+ * @property string|null $uuid
+ * @property string $collection_name
  * @property string $name
- * @property string $file_path
- * @property int $mediaId
- * @property string|null $description
- * @property string $mime_type
+ * @property string $content
  * @property string $disk
- * @property int|null $user_id
+ * @property string $size
+ * @property string $mime_type
+ * @property string $path
+ * @property string|null $conversions
+ * @property string|null $responsive_images
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
@@ -54,16 +60,22 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Media newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Media newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Media query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereCollectionName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereConversions($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Media whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Media whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Media whereDisk($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Media whereFilePath($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Media whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Media whereMediaId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Media whereMimeType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereModelId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereModelType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Media whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Media wherePath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereResponsiveImages($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereSize($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Media whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Media whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereUuid($value)
  */
 	class Media extends \Eloquent implements \Spatie\MediaLibrary\HasMedia {}
 }
