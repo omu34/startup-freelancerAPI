@@ -21,7 +21,7 @@ class FreelancerController extends Controller
      * Display a listing of the resource.
      */
     public function userCreateUpdateProfile(Profile $profile, Request $request)
-    {
+    {  try {
         $user = $request->user();
         $profile = $user->profile;
         $validatedData = $request->validate([
@@ -31,6 +31,9 @@ class FreelancerController extends Controller
         $profile->update($validatedData);
         $user->notify(new ProfileCreatedUpdatedSuccess($profile));
         return response()->json(['message' => 'Profile created/updated successfully']);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Failed to Create Profile.'], 500);
+    }
     }
 
     /**
@@ -38,7 +41,7 @@ class FreelancerController extends Controller
      */
     public function userSendApprovalRequest(Request $request)
     {
-        $user = $request->user();
+        try {  $user = $request->user();
         if (!$user->profile) {
             $user->profile()->create(['status' => 'is_requesting_for_approval']);
         } else {
@@ -52,6 +55,9 @@ class FreelancerController extends Controller
         }
 
         return response()->json(['message' => 'Profile approval request has been sent to the administrator']);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Failed to To send Approval.'], 500);
+    }
     }
 
 
@@ -60,7 +66,7 @@ class FreelancerController extends Controller
      */
     public function adminFetchPendingApproval(Profile $profile, Request $request)
     {
-        $user = User::find(1);
+        try { $user = User::find(1);
         if ($user && $user->is_admin) {
             echo "Allowed to Execute";
         } else {
@@ -86,6 +92,10 @@ class FreelancerController extends Controller
         }
         return response()->json(['message' => 'No pending profile approvals']);
 
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Admin Failed to Fetch Profile.'], 500);
+    }
+
     }
 
     /**
@@ -94,7 +104,7 @@ class FreelancerController extends Controller
 
     public function adminDecidesApproval(Request $request, Profile $profile)
     {
-        $user = User::find(1);
+        try {  $user = User::find(1);
         if ($user && $user->is_admin) {
             echo "Allowed to Execute";
         } else {
@@ -120,6 +130,9 @@ class FreelancerController extends Controller
         }
 
         return response()->json(['message' => 'Profile status updated successfully']);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Admin Failed to Approve Profile.'], 500);
+    }
     }
 
     /**
@@ -132,8 +145,11 @@ class FreelancerController extends Controller
         // if ($request->user()->type == "is_admin") {
         //     throw new Exception("You are  authorized to perform this action");
         // }
-        $profile->delete();
+        try { $profile->delete();
 
         return response()->json(['message' => 'Profile deleted successfully'], 200);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Failed to Delete Profile.'], 500);
+    }
     }
 }
