@@ -10,13 +10,21 @@ class File extends Model
     use HasFactory;
     protected $fillable = [
         'title',
+        'time',
         'content',
-        'file_path'
-    ];
+        'name',
+        'mime_type',
+        'title',
+        'file',
+        'file_path',
+        'MediaId',
+        'model', // Polymorphic relationship with other models
+        'size',
+
+        ];
 
     public function registerMediaCollections(): void
     {
-
         $this
             ->addMediaCollection('images')
             ->acceptsMimeTypes(['image/jpeg', 'image/png']);
@@ -31,6 +39,12 @@ class File extends Model
 
         $this
             ->addMediaCollection('documents')
-            ->acceptsMimeTypes(['application/pdf', 'application/vnd.ms-excel', 'text/csv']);
+            ->acceptsMimeTypes([
+            'text/csv',
+            'application/pdf',
+            'application/vnd.ms-excel',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        ]);
     }
 }

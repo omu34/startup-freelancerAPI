@@ -16,9 +16,18 @@ namespace App\Models{
  * 
  *
  * @property int $id
- * @property string $title
+ * @property string|null $title
+ * @property string $time
+ * @property string $name
  * @property string $content
+ * @property string $mime_type
+ * @property string|null $file
  * @property string $file_path
+ * @property int|null $MediaId
+ * @property string|null $model_type
+ * @property int|null $model_id
+ * @property string|null $uuid
+ * @property string $size
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Database\Factories\FileFactory factory($count = null, $state = [])
@@ -27,10 +36,19 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|File query()
  * @method static \Illuminate\Database\Eloquent\Builder|File whereContent($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|File whereFile($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File whereFilePath($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|File whereMediaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|File whereMimeType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|File whereModelId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|File whereModelType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|File whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|File whereSize($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|File whereTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|File whereUuid($value)
  */
 	class File extends \Eloquent {}
 }
