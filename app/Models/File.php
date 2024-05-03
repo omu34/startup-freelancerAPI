@@ -17,17 +17,15 @@ class File extends Model
         'title',
         'file',
         'file_path',
-        'MediaId',
         'model', // Polymorphic relationship with other models
         'size',
-
         ];
 
     public function registerMediaCollections(): void
     {
         $this
             ->addMediaCollection('images')
-            ->acceptsMimeTypes(['image/jpeg', 'image/png']);
+            ->acceptsMimeTypes(['image/jpeg','image/jpg', 'image/png']);
 
         $this
             ->addMediaCollection('videos')
@@ -35,7 +33,7 @@ class File extends Model
 
         $this
             ->addMediaCollection('audios')
-            ->acceptsMimeTypes(['audio/mpeg', 'audio/wav']);
+            ->acceptsMimeTypes(['audio/mpeg','audio/mp3', 'audio/wav']);
 
         $this
             ->addMediaCollection('documents')

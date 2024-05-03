@@ -6,14 +6,11 @@ use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-
-
 class FileUploaderController extends Controller
 {
     /**
      * Store a newly created resource in storage.
      */
-
 
     public function store(Request $request)
     {
@@ -21,7 +18,6 @@ class FileUploaderController extends Controller
             $request->validate([
                 'file' => 'required|file|mimes:jpeg,png,mp4,mov,wav,mp3,pdf,csv,xls,xlsx,zip|max:1048576',
                 'title' => 'nullable|string',
-
             ]);
 
             $file = $request->file('file');

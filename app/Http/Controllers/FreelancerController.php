@@ -56,7 +56,7 @@ class FreelancerController extends Controller
 
         return response()->json(['message' => 'Profile approval request has been sent to the administrator']);
     } catch (\Exception $e) {
-        return response()->json(['error' => 'Failed to To send Approval.'], 500);
+        return response()->json(['error' => 'User Failed to To send Approval.'], 500);
     }
     }
 
