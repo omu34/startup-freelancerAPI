@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('mime_type');
             $table->string('file')->nullable();
             $table->string('file_path');
-            $table->bigInteger('MediaId')->nullable();
             $table->nullableMorphs('model');
             $table->uuid()->nullable()->unique();
             $table->string('size');
