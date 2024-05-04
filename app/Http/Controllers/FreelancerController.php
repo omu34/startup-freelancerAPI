@@ -20,22 +20,32 @@ class FreelancerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function userCreateUpdateProfile(Profile $profile, Request $request)
+
+    public function userUpdateProfile(Profile $profile, Request $request)
     {
         try {
             $user = $request->user();
+            if (!$user->profile) {
+                $user->profile()->create([]);
+            }
+
             $profile = $user->profile;
+
             $validatedData = $request->validate([
                 'first_name' => 'required',
                 'last_name' => 'required',
             ]);
+
             $profile->update($validatedData);
+
             $user->notify(new ProfileCreatedUpdatedSuccess($profile));
+
             return response()->json(['message' => 'Profile created/updated successfully']);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to Create Profile.'], 500);
+            return response()->json(['error' => 'Failed to create/update profile.'], 500);
         }
     }
+
 
     /**
      * Show the form for creating a new resource.

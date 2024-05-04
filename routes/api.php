@@ -20,7 +20,7 @@ Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     // User routes
-    Route::put('/profile', [FreelancerController::class, 'userCreateUpdateProfile']);
+    Route::put('/profile', [FreelancerController::class, 'userUpdateProfile']);
     Route::post('/profile/request-approval', [FreelancerController::class, 'userSendApprovalRequest']);
     Route::delete('/profiles/{profile}', [FreelancerController::class, 'deleteProfile']);
     Route::post('profile/logout', [UserController::class, 'signOut']);

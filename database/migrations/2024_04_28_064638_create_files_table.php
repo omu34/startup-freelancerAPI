@@ -24,6 +24,7 @@ return new class extends Migration
             $table->uuid()->nullable()->unique();
             $table->string('size');
             $table->timestamps();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }
 
