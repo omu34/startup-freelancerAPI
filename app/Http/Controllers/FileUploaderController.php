@@ -25,7 +25,7 @@ class FileUploaderController extends Controller
             }
 
             $request->validate([
-                'file' => 'required|file|mimes:jpeg,png,mp4,mov,wav,mp3,pdf,csv,xls,xlsx,zip|max:1048576',
+                'file' => 'required|file|mimes:jpeg,png,jpg,mp4,mov,wav,mp3,pdf,csv,xls,xlsx,zip|max:1048576',
                 'title' => 'nullable|string',
             ]);
 
