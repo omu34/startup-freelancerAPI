@@ -45,4 +45,9 @@ class File extends Model
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         ]);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

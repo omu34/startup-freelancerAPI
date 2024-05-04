@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\File;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -15,6 +16,14 @@ class FileUploaderController extends Controller
     public function store(Request $request)
     {
         try {
+
+            $user = User::find(1);
+            if ($user && $user->is_admin) {
+                echo "Allowed to Execute";
+            } else {
+                echo "User is not authorized for admin tasks";
+            }
+
             $request->validate([
                 'file' => 'required|file|mimes:jpeg,png,mp4,mov,wav,mp3,pdf,csv,xls,xlsx,zip|max:1048576',
                 'title' => 'nullable|string',
@@ -71,6 +80,14 @@ class FileUploaderController extends Controller
     public function destroy($id)
     {
         try {
+
+            $user = User::find(1);
+            if ($user && $user->is_admin) {
+                echo "Allowed to Execute";
+            } else {
+                echo "User is not authorized for admin tasks";
+            }
+
             $media = File::findOrFail($id);
             \Storage::disk('public')->delete($media->file_path);
             $media->delete();

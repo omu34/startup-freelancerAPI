@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Profile;
+use App\Models\File;
 use Spatie\Permission\Traits\HasRoles;
 
 
@@ -50,9 +51,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
     public function profile()
     {
         return $this->hasOne(Profile::class);
     }
-  
+
+    public function file()
+    {
+        return $this->hasMany(File::class);
+    }
+
 }
