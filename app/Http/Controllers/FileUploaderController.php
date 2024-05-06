@@ -65,7 +65,6 @@ class FileUploaderController extends Controller
                 'Content-Type' => $file->mime_type,
                 'Content-Disposition' => 'attachment; filename="' . $file->name . '"',
             ];
-
             return response()->download(storage_path('app/public/' . $file->file_path), $file->name, $headers);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Failed to Download Media.'], 500);
@@ -87,7 +86,6 @@ class FileUploaderController extends Controller
             } else {
                 echo "User is not authorized for admin tasks";
             }
-
             $media = File::findOrFail($id);
             \Storage::disk('public')->delete($media->file_path);
             $media->delete();

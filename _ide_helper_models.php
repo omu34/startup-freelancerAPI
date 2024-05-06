@@ -23,14 +23,14 @@ namespace App\Models{
  * @property string $mime_type
  * @property string|null $file
  * @property string $file_path
- * @property int|null $MediaId
  * @property string|null $model_type
  * @property int|null $model_id
  * @property string|null $uuid
  * @property string $size
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\User|null $user
+ * @property int $user_id
+ * @property-read \App\Models\User $user
  * @method static \Database\Factories\FileFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|File newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|File newQuery()
@@ -40,7 +40,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|File whereFile($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File whereFilePath($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|File whereMediaId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File whereMimeType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File whereModelId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File whereModelType($value)
@@ -49,6 +48,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|File whereTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|File whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File whereUuid($value)
  */
 	class File extends \Eloquent {}

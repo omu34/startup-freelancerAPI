@@ -14,7 +14,6 @@ class File extends Model
         'content',
         'name',
         'mime_type',
-        'title',
         'file',
         'file_path',
         'model', // Polymorphic relationship with other models
